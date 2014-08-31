@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.facebook.AppEventsLogger;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -87,6 +88,10 @@ public class MainActivity extends FragmentActivity {
         super.onResume();
         uiHelper.onResume();
         isResumed = true;
+
+        // Call the 'activateApp' method to log an app event for use in analytics and advertising reporting.  Do so in
+        // the onResume methods of the primary Activities that an app may be launched into.
+        AppEventsLogger.activateApp(this);
     }
 
     @Override
@@ -94,6 +99,10 @@ public class MainActivity extends FragmentActivity {
         super.onPause();
         uiHelper.onPause();
         isResumed = false;
+
+        // Call the 'deactivateApp' method to log an app event for use in analytics and advertising
+        // reporting.  Do so in the onPause methods of the primary Activities that an app may be launched into.
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
